@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spend Ambani's Money</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+    }
+
+    header {
+      padding: 30px 10px 10px;
+    }
+
+    header img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin: 10px 0;
+    }
+
+    #money {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(to right, #00c853, #00e676);
+      color: white;
+      padding: 25px;
+      font-size: 32px;
+      font-weight: bold;
+      z-index: 10;
+    }
+
+    .item {
+      background: white;
+      border-radius: 14px;
+      margin: 25px auto;
+      max-width: 500px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 22px;
+    }
+
+    .item img {
+      width: 95%;
+      border-radius: 14px;
+    }
+
+    .name {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 15px 0 5px;
+    }
+
+    .price {
+      color: green;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .buttons button {
+      padding: 14px 36px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .buy {
+      background: #00c853;
+    }
+
+    .sell {
+      background: #b0bec5;
+    }
+
+    .sell.active {
+      background: #d32f2f;
+    }
+
+    .quantity {
+      font-size: 22px;
+      font-weight: bold;
+      width: 70px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 50px;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://iili.io/Fn6iiRj.png" alt="Mukesh Ambani">
+    <h1>Spend Ambani's Money</h1>
+  </header>
+
+  <div id="money">₹9,00,00,00,00,000</div>
+
+  <div id="items"></div>
+
+  <script>
+    let totalMoney = 9000000000000;
+
+    const items = [
+      { name: "Vada Pav", price: 30, image: "https://images.pexels.com/photos/17433337/pexels-photo-17433337.jpeg" },
+      { name: "Samosa", price: 20, image: "https://images.pexels.com/photos/14477873/pexels-photo-14477873.jpeg" },
+      { name: "Starbucks Coffee", price: 300, image: "https://images.unsplash.com/photo-1542729779-11d8fe8e25f6" },
+      { name: "Pizza", price: 500, image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" },
+      { name: "Burger", price: 150, image: "https://images.unsplash.com/photo-1542574271-7f3b92e6c821" },
+      { name: "Chole Bhature", price: 120, image: "https://iili.io/Fx5yMlf.png" },
+      { name: "Pav Bhaji", price: 150, image: "https://images.pexels.com/photos/5410400/pexels-photo-5410400.jpeg" },
+      { name: "Butter Chicken", price: 350, image: "https://images.pexels.com/photos/7625056/pexels-photo-7625056.jpeg" },
+      { name: "Momos", price: 100, image: "https://images.pexels.com/photos/7918232/pexels-photo-7918232.jpeg" },
+      { name: "Chaat", price: 50, image: "https://images.pexels.com/photos/28497406/pexels-photo-28497406.jpeg" },
+      { name: "Aloo Paratha", price: 80, image: "https://images.pexels.com/photos/28885201/pexels-photo-28885201.jpeg" },
+      { name: "Chicken Biryani", price: 250, image: "https://images.unsplash.com/photo-1716550781939-beb7d7247aae" },
+      { name: "Chapal", price: 500, image: "https://images.unsplash.com/photo-1622920799137-86c891159e44" },
+      { name: "Selling Fan", price: 2500, image: "https://images.unsplash.com/photo-1609519479841-5fd3b2884e17" },
+      { name: "AirPods Pro", price: 25000, image: "https://images.pexels.com/photos/3921846/pexels-photo-3921846.jpeg" },
+      { name: "Designer Leather Bag", price: 50000, image: "https://images.unsplash.com/photo-1572537794493-079b10d702df" },
+      { name: "Luxury Shoes", price: 80000, image: "https://images.unsplash.com/photo-1646747859549-56d6c2ee3e6e" },
+      { name: "MacBook Pro", price: 150000, image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8" },
+      { name: "Gaming PC (RTX 4090)", price: 300000, image: "https://images.unsplash.com/photo-1636489948870-058e57b5f7d9" },
+      { name: "Split AC", price: 50000, image: "https://plus.unsplash.com/premium_photo-1679943423706-570c6462f9a4" },
+      { name: "Premium Cycle", price: 50000, image: "https://images.unsplash.com/photo-1704130513494-d154306faaf2" },
+      { name: "DJI Drone", price: 150000, image: "https://images.unsplash.com/photo-1521405924368-64c5b84bec60" },
+      { name: "Samsung Z Fold", price: 165000, image: "https://images.unsplash.com/photo-1628744398863-1877b197f2cc" },
+      { name: "Rolex Daytona", price: 2500000, image: "https://images.unsplash.com/photo-1730757679771-b53e798846cf" },
+      { name: "Gold Necklace (22k)", price: 150000, image: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed" },
+      { name: "Diamond Necklace", price: 5000000, image: "https://images.unsplash.com/photo-1744822220368-c380740bfc7f" },
+      { name: "85-inch 8K TV", price: 500000, image: "https://images.unsplash.com/photo-1577979749830-f1d742b96791" },
+      { name: "Luxury Sofa Set", price: 1000000, image: "https://images.pexels.com/photos/1571471/pexels-photo-1571471.jpeg" },
+      { name: "Luxury King Bed", price: 500000, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a" },
+      { name: "Kawasaki Ninja H2R", price: 8000000, image: "https://images.unsplash.com/photo-1682980798344-6feac9455e66" },
+      { name: "Mahindra Thar 4×4", price: 2000000, image: "https://images.unsplash.com/photo-1710225358761-4f5891df657d" },
+      { name: "Mercedes G Wagon", price: 30000000, image: "https://images.unsplash.com/photo-1634636208509-63bcd2a1b13f" },
+      { name: "Land Rover Defender", price: 15000000, image: "https://images.unsplash.com/photo-1741905358565-5ae6835ac172" },
+      { name: "Porsche 911", price: 25000000, image: "https://images.unsplash.com/photo-1619844175408-c05947985e2d" },
+      { name: "BMW 7 Series", price: 15000000, image: "https://images.unsplash.com/photo-1618165613382-647167f59565" },
+      { name: "Range Rover Autobiography", price: 35000000, image: "https://images.unsplash.com/photo-1658547737133-18ff87807de7" },
+      { name: "Ferrari SF90", price: 75000000, image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888" },
+      { name: "Lamborghini Aventador", price: 50000000, image: "https://images.pexels.com/photos/15097786/pexels-photo-15097786.jpeg" },
+      { name: "Rolls Royce Phantom", price: 100000000, image: "https://images.unsplash.com/photo-1696233016084-30c8345d85ff" },
+      { name: "Bugatti Chiron", price: 400000000, image: "https://images.unsplash.com/photo-1627454820516-dc767bcb4d3e" },
+      { name: "Jet Ski", price: 1500000, image: "https://images.unsplash.com/photo-1574863226228-0f7ad00fcfe0" },
+      { name: "Private Jet (Gulfstream G650)", price: 5000000000, image: "https://images.unsplash.com/photo-1663180396749-94b7f1d58802" },
+      { name: "Fighter Jet (F-35)", price: 80000000000, image: "https://images.unsplash.com/photo-1715152513962-5e5a47440cf9" },
+      { name: "Luxury Cruise Ship", price: 50000000000, image: "https://images.unsplash.com/photo-1661959018062-e2041730f660" },
+      { name: "Super Yacht", price: 10000000000, image: "https://images.pexels.com/photos/163236/luxury-yacht-boat-speed-water-163236.jpeg" },
+      { name: "Dubai Villa (Palm Jumeirah)", price: 5000000000, image: "https://images.unsplash.com/photo-1468824357306-a439d58ccb1c" },
+      { name: "Luxury Mansion", price: 2500000000, image: "https://images.unsplash.com/photo-1661384890532-38d293491a30" },
+      { name: "5-Star Resort", price: 1000000000, image: "https://images.unsplash.com/photo-1598605272254-16f0c0ecdfa5" },
+      { name: "Waterpark", price: 5000000000, image: "https://images.unsplash.com/photo-1596618810292-31973b6cce3a" },
+      { name: "Cricket Stadium", price: 10000000000, image: "https://images.unsplash.com/photo-1730739463889-34c7279277a9" },
+      { name: "International Airport", price: 50000000000, image: "https://images.unsplash.com/photo-1601542383267-547848cc6451" },
+      { name: "Bullet Train", price: 10000000000, image: "https://images.unsplash.com/photo-1527295110-5145f6b148d0" },
+      { name: "Bollywood Movie Production", price: 1000000000, image: "https://images.pexels.com/photos/8088374/pexels-photo-8088374.jpeg" },
+      { name: "IPL Team (Mumbai Indians)", price: 15000000000, image: "https://iili.io/FokZZKB.png" }
+    ];  
+
+    // Sort items from cheapest to most expensive
+    items.sort((a, b) => a.price - b.price);
+
+    const itemsContainer = document.getElementById("items");
+    const moneyDisplay = document.getElementById("money");
+
+    items.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="name">${item.name}</div>
+        <div class="price">₹${item.price.toLocaleString()}</div>
+        <div class="buttons">
+          <button class="sell" id="sell-${index}">Sell</button>
+          <div class="quantity" id="qty-${index}">0</div>
+          <button class="buy" id="buy-${index}">Buy</button>
+        </div>
+      `;
+      itemsContainer.appendChild(div);
+
+      let qty = 0;
+
+      document.getElementById(`buy-${index}`).onclick = () => {
+        if (totalMoney >= item.price) {
+          qty++;
+          totalMoney -= item.price;
+          update(index, qty);
+        }
+      };
+
+      document.getElementById(`sell-${index}`).onclick = () => {
+        if (qty > 0) {
+          qty--;
+          totalMoney += item.price;
+          update(index, qty);
+        }
+      };
+
+      function update(i, q) {
+        document.getElementById(`qty-${i}`).innerText = q;
+        document.getElementById("money").innerText = "₹" + totalMoney.toLocaleString();
+        const sellBtn = document.getElementById(`sell-${i}`);
+        if (q > 0) {
+          sellBtn.classList.add("active");
+        } else {
+          sellBtn.classList.remove("active");
+        }
+      }
+    });
+  </script>
+
+</body>
+    </html>
